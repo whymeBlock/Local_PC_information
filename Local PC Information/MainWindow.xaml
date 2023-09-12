@@ -1,0 +1,139 @@
+﻿<Window x:Class="hostname_info.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hostname_info"
+        mc:Ignorable="d"
+        Height="300" 
+        Width="480" 
+        Loaded="Window_Loaded" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent" Cursor=""
+        >
+    <Border Background="White" CornerRadius="20" BorderBrush="#001e35" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" ></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="135"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!-- ToolBar -->
+            <Grid x:Name="ToolBar" Grid.Row="0" Grid.ColumnSpan="6">
+                <Rectangle MouseDown="Drag" Fill="Transparent" RadiusX="20" RadiusY="20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Image Height="20" Width="20" Margin="0,10,5,0"
+                           Name="MinButton"
+                           MouseDown="Image_MouseDown_1">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" 
+                                        Value="/Resources/minus_no_active.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=MinButton}"
+                                                 Value="True">
+                                        <Setter Property="Source" 
+                                                Value="./Resources/minus_active.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image Height="20" Width="20" Margin="0,10,10,0"
+                           Name="CloseButton"
+                           MouseDown="Image_MouseDown">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" 
+                                        Value="/Resources/close_no_active.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CloseButton}" 
+                                                 Value="True">
+                                        <Setter Property="Source" 
+                                                Value="./Resources/close_active.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </StackPanel>
+            </Grid>
+
+            <!-- Отображение Label -->
+            <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                       Style="{DynamicResource LabelInform}"
+                       Content="Телефон офисной техподдержки:"/>
+                <Label Grid.Row="0" Grid.Column="3"
+                       Style="{DynamicResource LabelResult}"
+                       Content="25401"/>
+
+                    <!-- Поля -->
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Style="{DynamicResource LabelInform}" 
+                       Content="Имя ПК:"/>
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Style="{DynamicResource LabelInform}"
+                       Content="IP адрес:" Cursor="IBeam"/>
+                <Label Grid.Row="2" Grid.Column="2" 
+                       Style="{DynamicResource LabelInform}" 
+                       Content="MAC адрес:"/>
+
+                <!-- Вывод результата -->
+                <Label Grid.Row="1" Grid.Column="1" 
+                       Style="{DynamicResource LabelResult}"
+                       x:Name="hostname"/>
+                <Label Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" 
+                       Style="{DynamicResource LabelResult}"
+                       x:Name="ip_adr"/>
+                <Label Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" 
+                       Style="{DynamicResource LabelResult}"
+                       x:Name="mac_adr"/>
+            </Grid>
+            
+            
+            <!-- Логотип -->
+            <Image Grid.Row="5" Grid.Column="1"  
+                   HorizontalAlignment="Left" Source="./Resources/ntk_logo.jpg" />
+
+            <!-- Кнопка обновления информации -->
+            <StackPanel Grid.Row="5" Grid.Column="2" 
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,0,20" Cursor="">
+                <Button Content="Обновить" 
+                        Width="100" 
+                        Height="30"
+                        Click="Button_Update"
+                        Style="{DynamicResource ButtonStyle}" 
+                        FontSize="12"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
